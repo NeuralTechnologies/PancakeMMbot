@@ -1,5 +1,6 @@
 import random
 
+
 # Function to generate an array of transactions
 def generate_balanced_array(K, available_wallets):
     N = random.randint(5, 7)  # number of transactions in the series
