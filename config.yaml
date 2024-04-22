@@ -1,0 +1,67 @@
+#Parameters for connecting to the database
+DATABASE:
+  port_db: '5432'
+  local_db_ip: 'localhost'
+  db_user:  'postgres'
+  db_password: 'anna'
+  db_name: 'PancakeMMbot'
+SETTINGS:
+  secret_key: 'MWRhSzlKcW1RcnN5eC1UZGlBRVlNMzBEQjRmd1lmS0kwNTBNMmtMNDVXRT0='
+  start_bnb_balance: 0.002
+  start_usdt_balance: 1
+  start_ubx_balance: 50000
+  min_bnb_balance: 0.00005
+  target_day_volume: 10
+  min_series_count: 5
+  max_series_count: 7
+  bsc_node_http: "https://bsc-dataseed.binance.org/"
+  fee: 500
+  gas_max: 300000
+  graphql_url: "https://api.thegraph.com/subgraphs/name/pancakeswap/exchange-v3-bsc"
+  graphql_query_yesterday_volume: |
+      {
+        poolDayDatas(
+          orderBy: date,
+          orderDirection: desc,
+          where: {
+            pool: "0x172fcd41e0913e95784454622d1c3724f546f849"
+          }
+        ) {
+          id
+          date
+          volumeUSD
+          volumeToken0
+          volumeToken1
+        }
+      }
+  graphql_query: |
+      {{
+        swaps(
+          first: {first},
+          skip: {skip},
+          orderBy: timestamp,
+          orderDirection: desc,
+          where: {{
+            pool: "0x172fcd41e0913e95784454622d1c3724f546f849",
+            timestamp_gt: {start_timestamp},
+      		timestamp_lt: {end_timestamp}
+          }}
+        ) {{
+          id
+          timestamp
+          token0 {{
+            id
+            symbol
+          }}
+          token1 {{
+            id
+            symbol
+          }}
+          amount0
+          amount1
+        }}
+      }}
+LOGGING:
+  logs_bot_token: '6733863104:AAE1QxUXUPmTACQfNlY8HdLcLOT4iMxvy3U'
+  logs_group_id: -1002093059669
+  log_file: 'spider.log'
