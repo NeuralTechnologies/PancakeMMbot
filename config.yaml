@@ -1,4 +1,5 @@
 #Parameters for connecting to the database
+# Здесь данные для подключения к базе данных - Станислав все это знает - в каждом проекте одинаково
 DATABASE:
   port_db: '5432'
   local_db_ip: 'localhost'
@@ -6,18 +7,31 @@ DATABASE:
   db_password: 'anna'
   db_name: 'PancakeMMbot'
 SETTINGS:
+  # секретный ключ которым шифруются приватные ключи при записи в бд, не зная его из БД их получить нельзя. 
   secret_key: 'MWRhSzlKcW1RcnN5eC1UZGlBRVlNMzBEQjRmd1lmS0kwNTBNMmtMNDVXRT0='
+  # Стартовый баланс на кошельке в BNB - определяется количеством сделок то есть периодчностью запуска - надо подбирать 
   start_bnb_balance: 0.002
+  # Стартовый баланс - зависит от целевого обьема - надо подбирать 
   start_usdt_balance: 1
+  # Стартовый баланс - зависит от целевого обьема - надо подбирать только в Вашем токене - его должно быть больше - так как мы потери в нем хотим иметь а ни в долларах 
   start_ubx_balance: 50000
+  # минимальный баланс который нужен на апрув и на транзакции ввода вывода с мастере 
   min_bnb_balance: 0.00005
+  # целевой обьем торгов в долларах в сутки 
   target_day_volume: 10
+  # минимальное количество сделок за серию 
   min_series_count: 5
+  # максимальное количество сделок за серию
   max_series_count: 7
+  # какую BSC ноду используем - тут бесплатная 
   bsc_node_http: "https://bsc-dataseed.binance.org/"
+  # комиссия за swap - определяется вашим контрактом - сейчас 0.05 процента 
   fee: 500
+  # максимальный газ для свапа с запасом обычно 150 000 
   gas_max: 300000
+  # официальный репозиторий TheGrape Pancake 
   graphql_url: "https://api.thegraph.com/subgraphs/name/pancakeswap/exchange-v3-bsc"
+  # Запрос получения торгов за предыдущие сутки 
   graphql_query_yesterday_volume: |
       {
         poolDayDatas(
@@ -34,6 +48,7 @@ SETTINGS:
           volumeToken1
         }
       }
+  # Зарпос получения торгово WBNBUSDT за 10 минут 
   graphql_query: |
       {{
         swaps(
@@ -62,6 +77,7 @@ SETTINGS:
         }}
       }}
 LOGGING:
+  # Логгирование как обычно во всех проектах 
   logs_bot_token: '6733863104:AAE1QxUXUPmTACQfNlY8HdLcLOT4iMxvy3U'
   logs_group_id: -1002093059669
   log_file: 'spider.log'
