@@ -14,6 +14,13 @@ with open('../../PancakeMMbot-data/abi/token.json') as f:
     TOKEN_ABI = json.load(f)
 with open('../../PancakeMMbot-data/abi/ubx.json') as f:
     UBX_ABI = json.load(f)
+with open('../../PancakeMMbot-data/abi/quoter.json') as f:
+    QUOTER_ABI = json.load(f)
+
+QUOTER_CONTRACT_ADDRESS =  web3.to_checksum_address('0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997')
+QUOTER_CONTRACT = web3.eth.contract(address=QUOTER_CONTRACT_ADDRESS, abi=QUOTER_ABI)
+
+
 PANCAKE_ROUTER_ADDRESS_V3 = web3.to_checksum_address('0x13f4EA83D0bd40E75C8222255bc855a974568Dd4')
 PANCAKE_ROUTER_CONTRACT_V3 = web3.eth.contract(address=PANCAKE_ROUTER_ADDRESS_V3, abi=PANCAKE_ROUTER_V3_ABI)
 
