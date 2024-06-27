@@ -67,7 +67,8 @@ def cal_amount_out(amount_in):
     amount_out = QUOTER_CONTRACT.functions.quoteExactInputSingle(
     (USDT_ADDRESS, UBX_TOKEN, amount_in, int(config['SETTINGS']['fee']), 0)
     ).call()
-    return amount_out    
+    return int(amount_out) - 1 
+    
 def trade(side, amount, holder):
     nonce = web3.eth.get_transaction_count(holder.address)
     if side == "buy":
