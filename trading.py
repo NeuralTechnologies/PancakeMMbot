@@ -85,7 +85,7 @@ def trade(side, amount, holder):
     else:
 
         payload = (UBX_TOKEN, USDT_ADDRESS, int(config['SETTINGS']['fee']), holder.address,
-                   int(amount * 10 ** 18), int(1000000), 0)
+                   int(amount * 0.99 * 10 ** 18), int(10000000), 0)
 
         tx = PANCAKE_ROUTER_CONTRACT_V3.functions.exactOutputSingle(payload).build_transaction({
             'from': holder.address,
