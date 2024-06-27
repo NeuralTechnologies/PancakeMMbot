@@ -63,12 +63,17 @@ def get_10_min_ago_volume(start_timestamp, end_timestamp):
 #    schedule.run_pending()
 #    time.sleep(1)
 
-
+def cal_amount_out(amount_in):
+    amount_out = QUOTER_CONTRACT.functions.quoteExactInputSingle(
+    (USDT_ADDRESS, UBX_TOKEN, amount_in, int(config['SETTINGS']['fee']), 0)
+    ).call()
+    return amount_out    
 def trade(side, amount, holder):
     nonce = web3.eth.get_transaction_count(holder.address)
     if side == "buy":
+        amount_out =  cal_amount_out(int(amount * 10 ** 18))
         payload = (USDT_ADDRESS, UBX_TOKEN, int(config['SETTINGS']['fee']), holder.address,
-                   int(amount * 10 ** 18), 0, 0)
+                   int(amount * 10 ** 18), amount_out, 0)
         tx = PANCAKE_ROUTER_CONTRACT_V3.functions.exactInputSingle(payload).build_transaction({
             'from': holder.address,
             'value': 0,
